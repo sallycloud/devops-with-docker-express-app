@@ -26,4 +26,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/bdevops-with-docker-express-app:latest
+        tags: ${{ secrets.DOCKER_USERNAME }}/devops-with-docker-express-app:latest
