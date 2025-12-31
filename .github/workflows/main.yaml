@@ -21,9 +21,17 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
+    - name: Read version from package.json
+      id: pkg
+      run: |
+        echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+
     - name: Build and push Docker image
       uses: docker/build-push-action@v6
       with:
         context: .
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/devops-with-docker-express-app:latest
+        tags: |
+          ${{ secrets.DOCKER_USERNAME }}/devops-with-docker-express-app:latest
+          ${{ secrets.DOCKER_USERNAME }}/devops-with-docker-express-app:${{ steps.pkg.outputs.version }}
